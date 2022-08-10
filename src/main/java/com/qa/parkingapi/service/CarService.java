@@ -3,16 +3,23 @@ package com.qa.parkingapi.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.qa.parkingapi.models.Car;
+import com.qa.parkingapi.models.Location;
 import com.qa.parkingapi.repo.CarRepo;
 
-@Component
+@Service
 public class CarService {
 	
+	//@Autowired--
 	private Car car; 
+	private Location location; 
+	
+	@Autowired
 	private CarRepo repo; 
+	
 	
 	public CarService() {
 		car = new Car(); 
@@ -60,6 +67,27 @@ public class CarService {
 		
 		return null; 
 	}
+	
+	//Add Location id
+	public Car updateLocation(Car car, Long carID) {
+		Location loc = new Location("bayName"); 
+		
+		Optional<Car> recentCar = this.repo.findById(carID); 
+		Car updateCar = car; 
+		
+		if(recentCar.get() instanceof Car) {
+			Car previousCar = recentCar.get(); 
+			
+			previousCar.setDetails(loc);
+			
+			
+			return previousCar; 
+		}
+		
+		return null; 
+	}
+	
+	
 	
 	
 	//Remove Car 
