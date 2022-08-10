@@ -1,48 +1,63 @@
 package com.qa.parkingapi.models;
 
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import java.util.Objects;
-
-import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
+@Table(name ="cars")
 public class Car {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private long carID;
+	
+	private Long carID;
 	
 	@NotNull
 	@Size(min=0, max=30)
-	@Column()
+	@Column(name="Car_Make")
 	private String carMake; 
 	
 	@NotNull
 	@Size(min=0, max=30)
-	@Column()
+	@Column(name ="Car_Model")
 	private String carModel; 
 	
 	@NotNull
-	@Column()
+	@Column(name= "Car_Registration")
 	private String carRegNum;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cars")
+	private Location location; 
+	
+	public void setDetails(Location location) {
+		this.location = location; 
+    }
 
+	
+	
+	
 	//default constructor
 	
-	@Autowired
+	//@Autowired
 	public Car() {
 		super();
 	}
 	
-	@Autowired
+	//@Autowired
 	//For pushing into the DB ID wont be needed it is auto generated 
 	public Car(String carMake, String carModel, String carRegNum) {
 		super();		
@@ -51,9 +66,9 @@ public class Car {
 		this.carRegNum = carRegNum;
 	}
 	
-	@Autowired
+	//@Autowired
 	//For pulling from the DB, this constructor will have the ID
-	public Car(long carID, String carMake, String carModel, String carRegNum) {
+	public Car(Long carID, String carMake, String carModel, String carRegNum) {
 		super();
 		this.carID = carID;
 		this.carMake = carMake;
@@ -61,11 +76,11 @@ public class Car {
 		this.carRegNum = carRegNum;
 	}
 
-	public long getCarID() {
+	public Long getCarID() {
 		return carID;
 	}
 
-	public void setCarID(long carID) {
+	public void setCarID(Long carID) {
 		this.carID = carID;
 	}
 
@@ -92,6 +107,22 @@ public class Car {
 	public void setCarRegNum(String carRegNum) {
 		this.carRegNum = carRegNum;
 	}
+	
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	} 
+	
+	public void addLocation(String location) {
+		this.location.getId(); 
+	}
+	
+//	public void removeAssignee(AssigneeDomain assignee) {
+//		this.assignees.remove(assignee);
+//	}
 
 	
 
@@ -117,7 +148,9 @@ public class Car {
 		Car other = (Car) obj;
 		return Objects.equals(carMake, other.carMake) && Objects.equals(carModel, other.carModel)
 				&& Objects.equals(carRegNum, other.carRegNum);
-	} 
+	}
+
+	
 	
 	
 	
