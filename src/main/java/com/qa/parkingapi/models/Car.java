@@ -2,20 +2,14 @@ package com.qa.parkingapi.models;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name ="cars")
@@ -40,14 +34,9 @@ public class Car {
 	@Column(name= "Car_Registration")
 	private String carRegNum;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cars")
-	private Location location; 
-	
-	public void setDetails(Location location) {
-		this.location = location; 
-    }
-
-	
+//	@NotNull
+//	@Column(name= "Bay_Location")
+//	private String location;
 	
 	
 	//default constructor
@@ -103,33 +92,16 @@ public class Car {
 	public String getCarRegNum() {
 		return carRegNum;
 	}
-
+	
 	public void setCarRegNum(String carRegNum) {
-		this.carRegNum = carRegNum;
+		this.carRegNum = carRegNum; 
 	}
-	
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	} 
-	
-	public void addLocation(String location) {
-		this.location.getId(); 
-	}
-	
-//	public void removeAssignee(AssigneeDomain assignee) {
-//		this.assignees.remove(assignee);
-//	}
 
 	
 
 	@Override
 	public String toString() {
-		return "Car [carID=" + carID + ", carMake=" + carMake + ", carModel=" + carModel + ", carRegNum=" + carRegNum
-				+ "]";
+		return "Car [carID=" + carID + ", carMake=" + carMake + ", carModel=" + carModel + ", carRegNum=" + carRegNum+ "]";
 	}
 
 	@Override
@@ -150,6 +122,9 @@ public class Car {
 				&& Objects.equals(carRegNum, other.carRegNum);
 	}
 
+	
+
+	
 	
 	
 	
