@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.parkingapi.models.Car;
-import com.qa.parkingapi.models.Location;
+
 import com.qa.parkingapi.repo.CarRepo;
 
 @Service
@@ -15,7 +15,7 @@ public class CarService {
 	
 	//@Autowired--
 	private Car car; 
-	private Location location; 
+	//private Location location; 
 	
 	@Autowired
 	private CarRepo repo; 
@@ -62,26 +62,8 @@ public class CarService {
 			previousCar.setCarModel(updateCar.getCarModel());
 			previousCar.setCarRegNum(updateCar.getCarRegNum());
 			
-			return previousCar; 
-		}
-		
-		return null; 
-	}
-	
-	//Add Location id
-	public Car updateLocation(Car car, Long carID) {
-		Location loc = new Location("bayName"); 
-		
-		Optional<Car> recentCar = this.repo.findById(carID); 
-		Car updateCar = car; 
-		
-		if(recentCar.get() instanceof Car) {
-			Car previousCar = recentCar.get(); 
 			
-			previousCar.setDetails(loc);
-			
-			
-			return previousCar; 
+			return this.repo.save(previousCar); 
 		}
 		
 		return null; 
