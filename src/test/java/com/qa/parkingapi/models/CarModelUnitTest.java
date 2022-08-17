@@ -1,12 +1,10 @@
 package com.qa.parkingapi.models;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals; 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.assertj.core.api.Assertions;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Equals;
 
 public class CarModelUnitTest {
 	
@@ -43,18 +41,24 @@ public class CarModelUnitTest {
 		assertThat(testCar.getCarRegNum()).isEqualTo("ZFX6PX");  
 	}
 	
+	/*
+	@Test
+	public void CarSetterTest() {
+		testCar.setCarID(null);
+		testCar.setCarMake(null);
+	}
+	*/
+	
+	
 	@Test
 	public void toStringTest() {
 		testCar = new Car(1L ,"Range Rover", "Sport", "HXv8PQ");
-		assertEquals("carID: 1L carMake:Range Rover carModel:Sport carRegNum:HXv8PQ", testCar.toString()); 
+		String expecting =  "Car [carID=" + testCar.getCarID() + ", carMake=" + testCar.getCarMake() + ", carModel=" + testCar.getCarModel() + ", carRegNum=" + testCar.getCarRegNum()+ "]";
+		assertEquals(expecting, testCar.toString()); 
+	
 	}
+	
 
-	
-	
-	
-	
-	
-	
 	
 
 }
