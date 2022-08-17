@@ -6,6 +6,11 @@ function redirect() {
     window.location = "http://127.0.0.1:5500/createCar.html";
 }
 
+function redirectReload() {
+
+    window.location.reload(); 
+}
+
 
 
 //create
@@ -102,6 +107,7 @@ const deleteCar = (carID) => {
         .then(res => res.json())
         .then(res => console.log(res))
         .catch(err => console.err(err `Delete Failed`));
+        alert("Deleting Record");
 
         // write function to refresh page after delete
 };
